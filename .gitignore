@@ -1,0 +1,10 @@
+#OS junk files
+[Tt]humb.db
+*.DS_Store
+
+#Visual Studio Files
+*.[Oo]bj
+*.user
+*.suo
+obj/
+[Bb]in/
