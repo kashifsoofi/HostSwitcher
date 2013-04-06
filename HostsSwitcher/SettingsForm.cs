@@ -27,8 +27,25 @@ namespace HostsSwitcher
 
             foreach (HostEntryElement hostEntry in config.HostEntries)
             {
-                lbHostEntries.Items.Add(hostEntry.Name);
+                lvHostEntries.Items.Add(hostEntry.Name);
             }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lvHosts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnEditHost.Enabled = lvHosts.SelectedItems.Count > 0;
+            btnRemoveHost.Enabled = lvHosts.SelectedItems.Count > 0;
+        }
+
+        private void lvHostEntries_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            btnEditHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
+            btnRemoveHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
         }
     }
 }
