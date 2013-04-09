@@ -19,15 +19,21 @@ namespace HostsSwitcher
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            HostsSwitcherConfiguration config = (HostsSwitcherConfiguration)ConfigurationManager.GetSection("HostsSwitcherConfiguration");
-            foreach (HostElement host in config.Hosts)
+            HostsSwitcherSection config = HostsSwitcherSection.Open();
+            for (int i = 0; i < config.Hosts.Count; i++)
             {
-                lvHosts.Items.Add(new ListViewItem(new string[] { host.Name, host.IP }));
+                HostElement host = config.Hosts[i];
+                ListViewItem lvi = new ListViewItem(new string[] { host.Name, host.IP });
+                lvi.Tag = i;
+                lvHosts.Items.Add(lvi);
             }
 
-            foreach (HostEntryElement hostEntry in config.HostEntries)
+            for (int i = 0; i < config.HostEntries.Count; i++)
             {
-                lvHostEntries.Items.Add(hostEntry.Name);
+                HostEntryElement hostEntry = config.HostEntries[i];
+                ListViewItem lvi = new ListViewItem(hostEntry.Name);
+                lvi.Tag = i;
+                lvHostEntries.Items.Add(lvi);
             }
         }
 
@@ -46,6 +52,22 @@ namespace HostsSwitcher
         {
             btnEditHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
             btnRemoveHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
+        }
+
+        private void btnAddHost_Click(object sender, EventArgs e)
+        {
+            HostForm hostForm = new HostForm();
+            hostForm.ShowDialog();
+        }
+
+        private void btnEditHost_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveHost_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

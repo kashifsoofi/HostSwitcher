@@ -94,6 +94,7 @@
             this.btnAddHost.TabIndex = 5;
             this.btnAddHost.Text = "Add";
             this.btnAddHost.UseVisualStyleBackColor = true;
+            this.btnAddHost.Click += new System.EventHandler(this.btnAddHost_Click);
             // 
             // btnEditHost
             // 
@@ -104,6 +105,7 @@
             this.btnEditHost.TabIndex = 6;
             this.btnEditHost.Text = "Edit";
             this.btnEditHost.UseVisualStyleBackColor = true;
+            this.btnEditHost.Click += new System.EventHandler(this.btnEditHost_Click);
             // 
             // btnRemoveHost
             // 
@@ -114,6 +116,7 @@
             this.btnRemoveHost.TabIndex = 7;
             this.btnRemoveHost.Text = "Remove";
             this.btnRemoveHost.UseVisualStyleBackColor = true;
+            this.btnRemoveHost.Click += new System.EventHandler(this.btnRemoveHost_Click);
             // 
             // btnRemoveHostEntry
             // 
