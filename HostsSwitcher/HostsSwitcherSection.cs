@@ -70,6 +70,11 @@ namespace HostsSwitcher
             return new HostElement();
         }
 
+        public void RemoveAt(int index)
+        {
+            this.BaseRemoveAt(index);
+        }
+
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((HostElement)element).Name;
@@ -115,6 +120,11 @@ namespace HostsSwitcher
         protected override ConfigurationElement CreateNewElement()
         {
             return new HostEntryElement();
+        }
+
+        public void RemoveAt(int index)
+        {
+            this.BaseRemoveAt(index);
         }
 
         protected override object GetElementKey(ConfigurationElement element)

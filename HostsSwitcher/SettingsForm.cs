@@ -23,17 +23,15 @@ namespace HostsSwitcher
             for (int i = 0; i < config.Hosts.Count; i++)
             {
                 HostElement host = config.Hosts[i];
-                ListViewItem lvi = new ListViewItem(new string[] { host.Name, host.IP });
-                lvi.Tag = i;
-                lvHosts.Items.Add(lvi);
+                string[] rowData = new string[] { host.Name, host.IP };
+                gvHosts.Rows.Add(rowData);
             }
 
             for (int i = 0; i < config.HostEntries.Count; i++)
             {
                 HostEntryElement hostEntry = config.HostEntries[i];
-                ListViewItem lvi = new ListViewItem(hostEntry.Name);
-                lvi.Tag = i;
-                lvHostEntries.Items.Add(lvi);
+                string[] rowData = new string[] { hostEntry.Name };
+                gvHostEntries.Rows.Add(rowData);
             }
         }
 
@@ -42,32 +40,52 @@ namespace HostsSwitcher
             this.Close();
         }
 
-        private void lvHosts_SelectedIndexChanged(object sender, EventArgs e)
+        private void gvHosts_SelectionChanged(object sender, EventArgs e)
         {
-            btnEditHost.Enabled = lvHosts.SelectedItems.Count > 0;
-            btnRemoveHost.Enabled = lvHosts.SelectedItems.Count > 0;
-        }
-
-        private void lvHostEntries_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            btnEditHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
-            btnRemoveHostEntry.Enabled = lvHostEntries.SelectedItems.Count > 0;
+            btnRemoveHost.Enabled = gvHosts.SelectedRows.Count > 0;
         }
 
         private void btnAddHost_Click(object sender, EventArgs e)
         {
-            HostForm hostForm = new HostForm();
-            hostForm.ShowDialog();
-        }
-
-        private void btnEditHost_Click(object sender, EventArgs e)
-        {
-
+            gvHosts.Rows.Add();
         }
 
         private void btnRemoveHost_Click(object sender, EventArgs e)
         {
+            if (gvHosts.SelectedRows.Count > 0 &&
+                gvHosts.SelectedRows[0].Index < gvHosts.Rows.Count)
+            {
+                int indexToRemove = gvHosts.SelectedRows[0].Index;
+                HostsSwitcherSection config = HostsSwitcherSection.Open();
+                config.Hosts.RemoveAt(indexToRemove);
+                config.Save();
+                // Update gridview
+                gvHosts.Rows.RemoveAt(indexToRemove);
+            }
+        }
 
+        private void gvHostEntries_SelectionChanged(object sender, EventArgs e)
+        {
+            btnRemoveHostEntry.Enabled = gvHostEntries.SelectedRows.Count > 0;
+        }
+
+        private void btnAddHostEntry_Click(object sender, EventArgs e)
+        {
+            gvHostEntries.Rows.Add();
+        }
+
+        private void btnRemoveHostEntry_Click(object sender, EventArgs e)
+        {
+            if (gvHostEntries.SelectedRows.Count > 0 &&
+                gvHostEntries.SelectedRows[0].Index < gvHostEntries.Rows.Count)
+            {
+                int indexToRemove = gvHostEntries.SelectedRows[0].Index;
+                HostsSwitcherSection config = HostsSwitcherSection.Open();
+                config.HostEntries.RemoveAt(indexToRemove);
+                config.Save();
+                // Update gridview
+                gvHostEntries.Rows.RemoveAt(indexToRemove);
+            }
         }
     }
 }
