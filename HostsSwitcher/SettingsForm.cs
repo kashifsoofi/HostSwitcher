@@ -40,14 +40,13 @@ namespace HostsSwitcher
             this.Close();
         }
 
-        private void gvHosts_SelectionChanged(object sender, EventArgs e)
-        {
-            btnRemoveHost.Enabled = gvHosts.SelectedRows.Count > 0;
-        }
-
+        #region Hosts Management
         private void btnAddHost_Click(object sender, EventArgs e)
         {
-            gvHosts.Rows.Add();
+            int rowIndex = gvHosts.Rows.Add();
+            gvHosts.CurrentCell = gvHosts[0, rowIndex];
+            gvHosts.NotifyCurrentCellDirty(true);
+            gvHosts.BeginEdit(false);
         }
 
         private void btnRemoveHost_Click(object sender, EventArgs e)
@@ -64,14 +63,39 @@ namespace HostsSwitcher
             }
         }
 
-        private void gvHostEntries_SelectionChanged(object sender, EventArgs e)
+        private void gvHosts_SelectionChanged(object sender, EventArgs e)
         {
-            btnRemoveHostEntry.Enabled = gvHostEntries.SelectedRows.Count > 0;
+            btnRemoveHost.Enabled = gvHosts.SelectedRows.Count > 0;
         }
 
+        private void gvHosts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                gvHosts.CurrentCell = gvHosts[1, e.RowIndex];
+                gvHosts.BeginEdit(false);
+            }
+            else if (e.ColumnIndex == 1)
+            {
+                HostsSwitcherSection config = HostsSwitcherSection.Open();
+                int index = e.RowIndex;
+                HostElement host = index < config.Hosts.Count ? config.Hosts[index] : new HostElement();
+                host.Name = gvHosts[0, index].Value.ToString();
+                host.IP = gvHosts[1, index].Value.ToString();
+
+                config.Hosts[index] = host;
+                config.Save();
+            }
+        }
+        #endregion
+
+        #region Host Entries Management
         private void btnAddHostEntry_Click(object sender, EventArgs e)
         {
-            gvHostEntries.Rows.Add();
+            int rowIndex = gvHostEntries.Rows.Add();
+            gvHostEntries.CurrentCell = gvHostEntries[0, rowIndex];
+            gvHostEntries.NotifyCurrentCellDirty(true);
+            gvHostEntries.BeginEdit(false);
         }
 
         private void btnRemoveHostEntry_Click(object sender, EventArgs e)
@@ -87,5 +111,21 @@ namespace HostsSwitcher
                 gvHostEntries.Rows.RemoveAt(indexToRemove);
             }
         }
+
+        private void gvHostEntries_SelectionChanged(object sender, EventArgs e)
+        {
+            btnRemoveHostEntry.Enabled = gvHostEntries.SelectedRows.Count > 0;
+        }
+
+        private void gvHostEntries_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            HostsSwitcherSection config = HostsSwitcherSection.Open();
+            int index = e.RowIndex;
+            HostEntryElement hostEntry = index < config.HostEntries.Count ? config.HostEntries[index] : new HostEntryElement();
+            hostEntry.Name = gvHostEntries[0, index].Value.ToString();
+            config.HostEntries[index] = hostEntry;
+            config.Save();
+        }
+        #endregion
     }
 }

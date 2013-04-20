@@ -144,6 +144,7 @@ namespace HostsSwitcher
         public string Name
         {
             get { return this["name"] as string; }
+            set { this["name"] = value; }
         }
     }
 }

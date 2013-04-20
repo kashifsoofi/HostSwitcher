@@ -36,16 +36,16 @@
             this.btnAddHostEntry = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpHosts = new System.Windows.Forms.TabPage();
-            this.tpHostEntries = new System.Windows.Forms.TabPage();
             this.gvHosts = new System.Windows.Forms.DataGridView();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tpHostEntries = new System.Windows.Forms.TabPage();
             this.gvHostEntries = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tpHosts.SuspendLayout();
-            this.tpHostEntries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvHosts)).BeginInit();
+            this.tpHostEntries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvHostEntries)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,19 +124,6 @@
             this.tpHosts.Text = "Hosts";
             this.tpHosts.UseVisualStyleBackColor = true;
             // 
-            // tpHostEntries
-            // 
-            this.tpHostEntries.Controls.Add(this.gvHostEntries);
-            this.tpHostEntries.Controls.Add(this.btnRemoveHostEntry);
-            this.tpHostEntries.Controls.Add(this.btnAddHostEntry);
-            this.tpHostEntries.Location = new System.Drawing.Point(4, 22);
-            this.tpHostEntries.Name = "tpHostEntries";
-            this.tpHostEntries.Padding = new System.Windows.Forms.Padding(3);
-            this.tpHostEntries.Size = new System.Drawing.Size(352, 201);
-            this.tpHostEntries.TabIndex = 1;
-            this.tpHostEntries.Text = "HostEntries";
-            this.tpHostEntries.UseVisualStyleBackColor = true;
-            // 
             // gvHosts
             // 
             this.gvHosts.AllowUserToAddRows = false;
@@ -155,6 +142,7 @@
             this.gvHosts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvHosts.Size = new System.Drawing.Size(340, 160);
             this.gvHosts.TabIndex = 9;
+            this.gvHosts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvHosts_CellEndEdit);
             this.gvHosts.SelectionChanged += new System.EventHandler(this.gvHosts_SelectionChanged);
             // 
             // colName
@@ -173,6 +161,19 @@
             this.colIP.Name = "colIP";
             this.colIP.Width = 120;
             // 
+            // tpHostEntries
+            // 
+            this.tpHostEntries.Controls.Add(this.gvHostEntries);
+            this.tpHostEntries.Controls.Add(this.btnRemoveHostEntry);
+            this.tpHostEntries.Controls.Add(this.btnAddHostEntry);
+            this.tpHostEntries.Location = new System.Drawing.Point(4, 22);
+            this.tpHostEntries.Name = "tpHostEntries";
+            this.tpHostEntries.Padding = new System.Windows.Forms.Padding(3);
+            this.tpHostEntries.Size = new System.Drawing.Size(352, 201);
+            this.tpHostEntries.TabIndex = 1;
+            this.tpHostEntries.Text = "HostEntries";
+            this.tpHostEntries.UseVisualStyleBackColor = true;
+            // 
             // gvHostEntries
             // 
             this.gvHostEntries.AllowUserToAddRows = false;
@@ -190,6 +191,7 @@
             this.gvHostEntries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvHostEntries.Size = new System.Drawing.Size(340, 160);
             this.gvHostEntries.TabIndex = 11;
+            this.gvHostEntries.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvHostEntries_CellEndEdit);
             this.gvHostEntries.SelectionChanged += new System.EventHandler(this.gvHostEntries_SelectionChanged);
             // 
             // dataGridViewTextBoxColumn1
@@ -217,8 +219,8 @@
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tpHosts.ResumeLayout(false);
-            this.tpHostEntries.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvHosts)).EndInit();
+            this.tpHostEntries.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvHostEntries)).EndInit();
             this.ResumeLayout(false);
 
