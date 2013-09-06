@@ -58,6 +58,7 @@
     <Compile Include="AppForm.Designer.cs">
       <DependentUpon>AppForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HostsSwitcherContext.cs" />
     <Compile Include="HostsSwitcherSection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,7 +97,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HostsSwitcher.ico" />
+    <Content Include="HostsSwitcher.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
