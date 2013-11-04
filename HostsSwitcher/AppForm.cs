@@ -9,7 +9,7 @@ namespace HostsSwitcher
     public partial class AppForm : Form
     {
         private string _hostsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\drivers\etc\hosts";
-        private string _liveHostsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\drivers\etc\hosts.live";
+        private string _originalHostsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\drivers\etc\hosts.original";
 
         private List<ToolStripMenuItem> _hostsMenuItems = new List<ToolStripMenuItem>();
 
@@ -18,10 +18,10 @@ namespace HostsSwitcher
             InitializeComponent();
 
             // Backup original file if does not exist
-            if (!File.Exists(_liveHostsFilePath))
+            if (!File.Exists(_originalHostsFilePath))
             {
-                File.Copy(_hostsFilePath, _liveHostsFilePath);
-                File.AppendAllLines(_hostsFilePath, new List<string> { "#Live" });
+                File.Copy(_hostsFilePath, _originalHostsFilePath);
+                File.AppendAllLines(_hostsFilePath, new List<string> { "#Original" });
             }
         }
 
@@ -82,7 +82,7 @@ namespace HostsSwitcher
             contentEntries.Add("#" + hostname);
 
             // Copy live file
-            File.Copy(_liveHostsFilePath, _hostsFilePath, true);
+            File.Copy(_originalHostsFilePath, _hostsFilePath, true);
             File.AppendAllLines(_hostsFilePath, contentEntries);
         }
 
